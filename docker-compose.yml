@@ -15,9 +15,9 @@ services:
         restart: "unless-stopped"
         volumes:
             # Подменяем файл конфигурации внутри контейнера на свой
-            - "D:/redis/redis.conf:/usr/local/etc/redis/redis.conf"
+            - "/d/redis/redis.conf:/usr/local/etc/redis/redis.conf"
             # Примонтируем внутрь контейнера наш каталог в расположение /data
-            - "D:/redis/data:/data"
+            - "/d/redis/data:/data"
         command: "redis-server /usr/local/etc/redis/redis.conf"
         healthcheck:
             test: [ "CMD", "redis-cli","ping" ]
