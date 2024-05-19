@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+    bot:
+        image: "count_start_redis_bot:latest"
+        restart: "unless-stopped"    
+        env_file: ".env"
+        # Дополнительно укажем, что бот должен запускаться 
+        # только ПОСЛЕ Redis
+        depends_on:
+            - "redis_fsm"
+
+
+    redis_fsm:
+        image: redis:7
+        restart: "unless-stopped"
+        volumes:
+            # Подменяем файл конфигурации внутри контейнера на свой
+            - "D:/redis/redis.conf:/usr/local/etc/redis/redis.conf"
+            # Примонтируем внутрь контейнера наш каталог в расположение /data
+            - "D:/redis/data:/data"
+        command: "redis-server /usr/local/etc/redis/redis.conf"
+        healthcheck:
+            test: [ "CMD", "redis-cli","ping" ]
