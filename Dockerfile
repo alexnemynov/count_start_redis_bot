@@ -5,5 +5,5 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache -r /app/requirements.txt
-COPY . /app/
-CMD ["python", "main.py"]
+COPY count_start_redis_bot /app/count_start_redis_bot
+CMD ["python", "-m", "count_start_redis_bot"]
